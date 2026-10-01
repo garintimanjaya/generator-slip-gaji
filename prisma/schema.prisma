@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Company {
+  id        String    @id @default(uuid())
+  name      String
+  subName   String?
+  address   String?
+  payrolls  Payroll[]
+  createdAt DateTime  @default(now())
+}
+
+model Employee {
+  id        String    @id @default(uuid())
+  name      String
+  jobTitle  String
+  phone     String?
+  payrolls  Payroll[]
+  createdAt DateTime  @default(now())
+}
+
+model Payroll {
+  id            String   @id @default(uuid())
+  refNumber     String   @unique
+  period        String
+  badge         String   @default("SLIP GAJI RESMI")
+  paymentMethod String   @default("Transfer Bank")
+  
+  // Rincian Keuangan
+  baseSalary    Float
+  allowance     Float
+  deduction     Float
+  totalPay      Float
+
+  // Data Pengesahan
+  ownerName     String
+  sigMode       String   @default("vector")
+  inkColor      String   @default("#0f2b5c")
+  parafText     String   @default("[ TEROTORISASI DIGITAL SAH ]")
+
+  // Relasi
+  employeeId    String
+  employee      Employee @relation(fields: [employeeId], references: [id])
+  companyId     String
+  company       Company  @relation(fields: [companyId], references: [id])
+
+  createdAt     DateTime @default(now())
+}
