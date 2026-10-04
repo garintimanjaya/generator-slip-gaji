@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --turbopack",
+    "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma skills sync || exit 0"
@@ -31,12 +31,5 @@
     "prisma": "^7.10.0",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "npx prisma generate && next build",
-    "start": "next start",
-    "lint": "eslint",
-    "postinstall": "prisma skills sync || exit 0"
   }
 }
